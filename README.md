@@ -97,10 +97,10 @@ log in, and upload assignments. Admins can register, log in, view assignments as
   1. GET /assignments:
      - Get all assignments tagged to the admin.
        
-  2. POST /assignments/
+  2. POST /assignments:
     - /accept:  Accept an assignment by its ID.
       
-  3. POST /assignments/
+  3. POST /assignments:
     - /reject: Reject an assignment by its ID.
 
  ## Technologies Used
