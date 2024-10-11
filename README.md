@@ -48,13 +48,13 @@ log in, and upload assignments. Admins can register, log in, view assignments as
 
 - JWT_SECRET: The secret key used to sign and verify JWT tokens for authentication.
 - PORT: The port number on which the server will run (default: 3000 if not specified).
-- MONGO_URI: MongoDB connection URI.
+- MONGO_URL: MongoDB connection URL.
 
   
  ### Example .env file:
 - JWT_SECRET=mySuperSecretKey
 - PORT=3000
-- MONGO_URI=mongodb://localhost:27017/assignment-portal
+- MONGO_URL=mongodb://localhost:27017/assignment-portal
 
   ## API Endpoints
    ### User Endpoints
@@ -66,22 +66,28 @@ log in, and upload assignments. Admins can register, log in, view assignments as
         "email": "your-email",
         "password": "your-password",
         "role": "user" // or "admin"
+ 
       }
+  
    2. POST /login:
      - Log in as a user or admin.
      - Request Body:
       {
         "email": "your-email",
         "password": "your-password"
+ 
       }
+  
    3. POST /upload:
       - Upload an assignment (user).
       - Request Body:
       {
         "task": "your-task",
         "adminId": "admin-id"
+     
       }
-   4. GET /admins: 
+      
+   5. GET /admins: 
      - Fetch all admins.
 
   ### Admin Endpoints
