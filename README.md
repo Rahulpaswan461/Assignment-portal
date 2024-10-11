@@ -27,7 +27,7 @@ log in, and upload assignments. Admins can register, log in, view assignments as
 
 ## Installation
 1. Clone the repository:
-   git clone https://github.com/your-username/assignment-submission-portal.git
+   git clone https://github.com/Rahulpaswan461/Assignment-portal.git
 2. Navigate to the project directory:
    cd assignment-portal
 3. Install the dependencies:
@@ -85,11 +85,13 @@ log in, and upload assignments. Admins can register, log in, view assignments as
      - Fetch all admins.
 
   ### Admin Endpoints
-  1.GET /assignments:
+  1. GET /assignments:
      - Get all assignments tagged to the admin.
+       
   2. POST /assignments/
     - /accept:
     - Accept an assignment by its ID.
+      
   3. POST /assignments/
     - /reject:
     - Reject an assignment by its ID.
