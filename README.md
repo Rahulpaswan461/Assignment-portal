@@ -61,6 +61,7 @@ log in, and upload assignments. Admins can register, log in, view assignments as
    1. POST /register:
      - Register a new user or admin.
      - Request Body:
+ 
       {
         "name": "your-name",
         "email": "your-email",
@@ -72,6 +73,7 @@ log in, and upload assignments. Admins can register, log in, view assignments as
    2. POST /login:
      - Log in as a user or admin.
      - Request Body:
+       
       {
         "email": "your-email",
         "password": "your-password"
@@ -81,6 +83,7 @@ log in, and upload assignments. Admins can register, log in, view assignments as
    3. POST /upload:
       - Upload an assignment (user).
       - Request Body:
+     
       {
         "task": "your-task",
         "adminId": "admin-id"
