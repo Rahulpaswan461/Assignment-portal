@@ -33,13 +33,13 @@ log in, and upload assignments. Admins can register, log in, view assignments as
 3. Install the dependencies:
     npm install
 4. Set up the environment variables:
-    - JWT_SECRET=<your-secret-key>
-    - PORT=<port-number>
-    - MONGO_URI=<your-mongodb-url>
+    - JWT_SECRET = your-secret-key
+    - PORT = port-number
+    - MONGO_URI = your-mongodb-url
 5. Start the server:
    npm start
 
-   - The server should now be running on the specified port (from the .env file). You can access the API at http://localhost:<port>.
+   - The server should now be running on the specified port (from the .env file). You can access the API at http://localhost: port.
   
 
 ## Environment Variables
