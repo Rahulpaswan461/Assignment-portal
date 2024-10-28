@@ -5,7 +5,7 @@
 function userAuth(req, res, next) {
     // Deny access if the user is an admin
     if (req.user.role === 'admin') {
-        return res.status(403).json({ error: "Admin can't create tasks" });
+        return res.status(403).json({ error: "Admin can't create task" });
     }
     next(); // Proceed if the user is not an admin
 }

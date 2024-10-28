@@ -2,87 +2,84 @@ const Assignment = require("../models/assignment");
 const mongoose = require("mongoose");
 
 /**
- * Function to get all assignments tagged to the current admin (req.user._id).
+ * Fetch all assignments assigned to the current admin.
+ * @route GET /api/admin/assignments
+ * @access Admin
  */
 async function getAllAssignments(req, res) {
     try {
-        // Find assignments where the 'admin' field matches the current user's ID (assumed to be an admin)
-        const assignment = await Assignment.find({ admin: req.user._id });
+        // Find assignments where the admin matches the current user's ID
+        const assignments = await Assignment.find({ admin: req.user._id });
 
-        // If no assignments are found, return a 400 Bad Request response with an error message
-        if (!assignment) {
-            return res.status(400).json({ msg: "No assignments are tagged to you !!" });
+        // Return 400 if no assignments are found
+        if (!assignments) {
+            return res.status(400).json({ msg: "No assignments are tagged to you!" });
         }
 
-        // If assignments are found, return them with a 200 OK status
-        return res.status(200).json(assignment);
+        // Return assignments with 200 status
+        return res.status(200).json(assignments);
     } catch (error) {
-        // Log the error and return a 500 Internal Server Error response with a generic error message
-        console.log("There is some error", error);
+        console.error("Error fetching assignments:", error);
         return res.status(500).json({ msg: "Internal Server Error", error });
     }
 }
 
 /**
- * Function to accept an assignment by updating its status to 'accepted'.
- * It verifies that the assignment belongs to the current admin (req.user._id).
+ * Accept an assignment by updating its status to 'accepted'.
+ * @route POST /api/admin/assignments/:id/accept
+ * @access Admin
  */
 async function acceptAssignment(req, res) {
     try {
-        // Find the assignment by its ID (from req.params) and ensure it belongs to the current admin
+        // Find the assignment by ID and ensure it belongs to the current admin
         let assignment = await Assignment.findOne({ _id: req.params.id, admin: req.user._id });
 
-        // If no assignment is found, return a 400 Bad Request response with an error message
+        // Return 400 if the assignment is not found
         if (!assignment) {
-            return res.status(400).json({ msg: "No assignment is present with the given id : " });
+            return res.status(400).json({ msg: "No assignment found with the given ID!" });
         }
 
-        // Update the assignment's status to "accepted"
+        // Update the status to 'accepted' and save
         assignment.status = "accepted";
-
-    
         await assignment.save();
 
-        // Return the updated assignment with a 200 OK status
+        // Return updated assignment with 200 status
         return res.status(200).json(assignment);
     } catch (error) {
-        // Log the error and return a 500 Internal Server Error response with a generic error message
-        console.log("There is some error", error);
-        return res.status(500).json({ msg: "Internal server error" });
-    }
-}
-
-/**
- * Function to reject an assignment by updating its status to 'rejected'.
- * It first checks if the provided ID is a valid MongoDB ObjectId.
- */
-async function rejectAssignment(req, res) {
-    try {
-        // Check if the provided ID is a valid MongoDB ObjectId
-        let assignment = await Assignment.findOne({ _id: req.params.id, admin: req.user._id });
-
-        // If no assignment is found, return a 400 Bad Request response with an error message
-        if (!assignment) {
-            return res.status(400).json({ msg: "No assignment is present with the given id : " });
-        }
-
-        // Update the assignment's status to "accepted"
-        assignment.status = "rejected";
-
-    
-        await assignment.save();
-        // Return the updated assignment with a 200 OK status
-        return res.status(200).json(assignment);
-    } catch (error) {
-        // Log the error and return a 500 Internal Server Error response with a generic error message
-        console.log("There is some error", error);
+        console.error("Error accepting assignment:", error);
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 }
 
+/**
+ * Reject an assignment by updating its status to 'rejected'.
+ * @route POST /api/admin/assignments/:id/reject
+ * @access Admin
+ */
+async function rejectAssignment(req, res) {
+    try {
+        // Find the assignment by ID and ensure it belongs to the current admin
+        let assignment = await Assignment.findOne({ _id: req.params.id, admin: req.user._id });
+
+        // Return 400 if the assignment is not found
+        if (!assignment) {
+            return res.status(400).json({ msg: "No assignment found with the given ID!" });
+        }
+
+        // Update the status to 'rejected' and save
+        assignment.status = "rejected";
+        await assignment.save();
+
+        // Return updated assignment with 200 status
+        return res.status(200).json(assignment);
+    } catch (error) {
+        console.error("Error rejecting assignment:", error);
+        return res.status(500).json({ msg: "Internal Server Error" });
+    }
+}
 
 module.exports = {
-    getAllAssignments, 
-    acceptAssignment,  
-    rejectAssignment  
+    getAllAssignments,
+    acceptAssignment,
+    rejectAssignment
 };

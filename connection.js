@@ -1,9 +1,12 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-function connectMongoDB(path){
-    return mongoose.connect(path)
+/**
+ * Connect to MongoDB using the provided connection string.
+ */
+function connectMongoDB(path) {
+    return mongoose.connect(path);
 }
 
 module.exports = {
     connectMongoDB
-}
+};

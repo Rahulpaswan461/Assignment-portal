@@ -48,21 +48,17 @@ userSchema.pre("save",async function(next){
 
 userSchema.static("matchPasswordAndGenerateToken",async function(email,password){
     const user = await this.findOne({email})
+   
+    if(!user) throw new Error("Invalid username or password!!")
 
-    if(!user){
-        throw new Error("Inavalid username or password")
-    }
-     
-    const hashedPassword = user.password
-    
-    const isMatch = await bcrypt.compare(password, hashedPassword)
+    const isMatch = await bcrypt.compare(password,user.password)
 
     if(isMatch){
-        const token = createTokenForAuthenticateUser(user)
-        return token
+       const token = createTokenForAuthenticateUser(user)
+       return token;
     }
     else{
-        throw new Error("Invalid username or password ")
+       throw new Error("Invalid username or password")
     }
 })
 
