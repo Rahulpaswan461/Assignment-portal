@@ -35,7 +35,7 @@ log in, and upload assignments. Admins can register, log in, view assignments as
 4. Set up the environment variables:
     - JWT_SECRET = your-secret-key
     - PORT = port-number
-    - MONGO_URI = your-mongodb-url
+    - MONGO_URL = your-mongodb-url
 5. Start the server:
    npm start
 
